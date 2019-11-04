@@ -28,16 +28,16 @@ module.exports = {
             // workaround for warning: System.import() is deprecated and will be removed soon. Use import() instead.
             {
                 test: /[\/\\]@angular[\/\\].+\.js$/,
-                parser: { system: true }
+                parser: {system: true}
             }
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({ template: './src/index.html' }),
+        new HtmlWebpackPlugin({template: './src/index.html'}),
         new webpack.DefinePlugin({
             // global app config object
             config: JSON.stringify({
-                apiUrl: 'http://localhost:4000'
+                apiUrl: 'http://localhost'
             })
         }),
 
@@ -54,6 +54,11 @@ module.exports = {
         runtimeChunk: true
     },
     devServer: {
-        historyApiFallback: true
+        historyApiFallback: true,
+        inline: true,
+        port: 4200
+    },
+    output: {
+        filename: 'bundle.js',
     }
 }
