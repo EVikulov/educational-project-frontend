@@ -1,0 +1,59 @@
+<form [formGroup]="studentForm" (ngSubmit)="onSubmit()" class="">
+    <div class="form-group row">
+        <label for="email" class="col-sm-2 col-form-label col-form-label-sm">Email</label>
+        <div class="col-sm-10">
+            <input type="text" formControlName="email" class="form-control form-control-sm" id="email" placeholder="email">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label col-form-label-sm">Name</label>
+        <div class="col-sm-10">
+            <input type="text" formControlName="name"  class="form-control form-control-sm" id="name" placeholder="name">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="card_number" class="col-sm-2 col-form-label col-form-label-sm">Card number</label>
+        <div class="col-sm-10">
+            <input type="text" formControlName="card_number" class="form-control form-control-sm" id="card_number" placeholder="card number">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="group_name" class="col-sm-2 col-form-label col-form-label-sm">Group name</label>
+        <div class="col-sm-10">
+            <input type="text" formControlName="group_name" class="form-control form-control-sm" id="group_name" placeholder="group name">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="subgroup" class="col-sm-2 col-form-label col-form-label-sm">Subgroup</label>
+        <div class="col-sm-10">
+            <input type="number" formControlName="subgroup" class="form-control form-control-sm" id="subgroup" placeholder="subgroup">
+        </div>
+    </div>
+
+    <button type="submit" [disabled]="!studentForm.valid" class="btn btn-primary">Submit</button>
+</form>
+
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Card number</th>
+            <th scope="col">Group name</th>
+            <th scope="col">Subgroup</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let student of students">
+            <th scope="row">{{ student.id }}</th>
+            <td>{{ student.name }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.card_number }}</td>
+            <td>{{ student.group_name }}</td>
+            <td>{{ student.subgroup }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

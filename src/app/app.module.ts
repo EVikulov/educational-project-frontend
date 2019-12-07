@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { AlertComponent } from './_components';
+import { StudentComponent } from "@/student/student.component";
 
 @NgModule({
     imports: [
@@ -20,6 +21,7 @@ import { AlertComponent } from './_components';
     declarations: [
         AppComponent,
         HomeComponent,
+        StudentComponent,
         LoginComponent,
         AlertComponent
     ],
