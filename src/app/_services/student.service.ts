@@ -22,4 +22,12 @@ export class StudentService {
   addStudent(student) {
     return this.http.post(`${config.apiUrl}/student/`, student);
   }
+
+  updateStudent(id, student) {
+    return this.http.put(`${config.apiUrl}/student/${id}`, student);
+  }
+
+  getStudent(id) {
+    return this.http.get(`${config.apiUrl}/student/${id}`);
+  }
 }

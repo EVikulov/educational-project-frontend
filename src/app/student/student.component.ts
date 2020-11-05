@@ -7,16 +7,15 @@ import { AuthenticationService, StudentService } from '@/_services';
 
 @Component({ templateUrl: 'students.component.html' })
 export class StudentComponent implements OnInit {
-  studentForm = this.fb.group({
-    name: [ '', Validators.required ],
-    email: [ '', Validators.required ],
-    card_number: [ '', Validators.required ],
-    group_name: [ '', Validators.required ],
-    subgroup: [ 1, Validators.required ]
-  });
-
   public students = [];
   currentUser: User;
+  studentForm = this.fb.group({
+    name: ['', Validators.required ],
+    email: ['', Validators.required ],
+    card_number: ['', Validators.required ],
+    group_name: ['', Validators.required ],
+    subgroup: [1, Validators.required ],
+  });
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -24,13 +23,18 @@ export class StudentComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
+    this.setForm();
   }
 
   ngOnInit() {
-    this.studentService.getAll()
-      .subscribe(
-        data => {
-          this.students = data;
+    this.getAll();
+  }
+
+  updateStudent(id: number) {
+    const student = this.studentService
+      .getStudent(id)
+      .subscribe(data => {
+          this.setForm(data);
         },
         error => {
           console.log(error);
@@ -38,8 +42,9 @@ export class StudentComponent implements OnInit {
   }
 
   deleteStudent(id: number) {
-    this.studentService.delete(id)
-      .pipe(first());
+    this.studentService.delete(id).subscribe(() => {
+      this.getAll();
+    })
   }
 
   onSubmit() {
@@ -51,13 +56,47 @@ export class StudentComponent implements OnInit {
       subgroup: this.studentForm.controls.subgroup.value
     };
 
-    this.studentService.addStudent(student)
+    if (this.studentForm.controls.id.value) {
+      this.studentService
+        .updateStudent(this.studentForm.controls.id.value, student)
+        .subscribe(() => {
+          this.getAll()
+        });
+    } else {
+      this.studentService.addStudent(student)
+        .subscribe(
+          data => {
+            this.students.push(data);
+          },
+          error => {
+            console.log(error);
+          });
+    }
+
+    this.setForm();
+  }
+
+  private getAll()
+  {
+    this.studentService.getAll()
       .subscribe(
         data => {
-          this.students.push(data);
+          this.students = data;
         },
         error => {
           console.log(error);
         });
+  }
+
+  private setForm(data = null)
+  {
+    this.studentForm = this.fb.group({
+      name: [ (data && data.name) ? data.name : '', Validators.required ],
+      email: [ (data && data.email) ? data.email : '', Validators.required ],
+      card_number: [(data && data.card_number) ? data.card_number :  '', Validators.required ],
+      group_name: [ (data && data.group_name) ? data.group_name : '', Validators.required ],
+      subgroup: [(data && data.subgroup) ? data.subgroup : 1, Validators.required ],
+      id: [(data && data.id) ? data.id : null]
+    });
   }
 }

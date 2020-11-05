@@ -43,6 +43,7 @@
             <th scope="col">Card number</th>
             <th scope="col">Group name</th>
             <th scope="col">Subgroup</th>
+            <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -53,6 +54,11 @@
             <td>{{ student.card_number }}</td>
             <td>{{ student.group_name }}</td>
             <td>{{ student.subgroup }}</td>
+            <td>
+                <span (click)="deleteStudent(student.id)" class="glyphicon glyphicon-remove">Delete</span>
+                <br>
+                <span (click)="updateStudent(student.id)">Update</span>
+            </td>
         </tr>
         </tbody>
     </table>
