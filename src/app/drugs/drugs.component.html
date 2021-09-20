@@ -1,0 +1,57 @@
+<form [formGroup]="drugsForm" (ngSubmit)="onSubmit()" class="">
+    <div class="form-group row">
+        <label for="type" class="col-sm-2 col-form-label col-form-label-sm">Type</label>
+        <div class="col-sm-10">
+            <input type="text" formControlName="type" class="form-control form-control-sm" id="type" placeholder="type">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label col-form-label-sm">Name</label>
+        <div class="col-sm-10">
+            <input type="text" formControlName="name"  class="form-control form-control-sm" id="name" placeholder="name">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="model" class="col-sm-2 col-form-label col-form-label-sm">Model</label>
+        <div class="col-sm-10">
+            <input type="text" formControlName="model" class="form-control form-control-sm" id="model" placeholder="model">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="price" class="col-sm-2 col-form-label col-form-label-sm">Price</label>
+        <div class="col-sm-10">
+            <input type="text" formControlName="price" class="form-control form-control-sm" id="price" placeholder="price">
+        </div>
+    </div>
+
+    <button type="submit" [disabled]="!studentForm.valid" class="btn btn-primary">Submit</button>
+</form>
+
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Type</th>
+            <th scope="col">Name</th>
+            <th scope="col">Model</th>
+            <th scope="col">Price</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let drug of drugs">
+            <th scope="row">{{ drug.id }}</th>
+            <td>{{ drug.type }}</td>
+            <td>{{ drug.name }}</td>
+            <td>{{ drug.model }}</td>
+            <td>{{ drug.price }}</td>
+            <td>
+                <span (click)="deleteDrug(drug.id)" class="glyphicon glyphicon-remove">Delete</span>
+                <br>
+                <span (click)="updateDrug(drug.id)">Update</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
