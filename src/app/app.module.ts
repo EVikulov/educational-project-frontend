@@ -10,6 +10,7 @@ import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { AlertComponent } from './_components';
 import { StudentComponent } from "@/student/student.component";
+import { DrugsComponent } from "@/drugs/drugs.component";
 
 @NgModule({
     imports: [
@@ -19,6 +20,7 @@ import { StudentComponent } from "@/student/student.component";
         appRoutingModule
     ],
     declarations: [
+	    DrugsComponent,
         AppComponent,
         HomeComponent,
         StudentComponent,
