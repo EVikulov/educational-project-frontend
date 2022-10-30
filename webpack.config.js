@@ -21,8 +21,9 @@ module.exports = {
                 use: 'html-loader'
             },
             {
-                test: /\.less$/,
-                use: ['style-loader', 'css-loader', 'less-loader']
+                test: /\.scss$/,
+                exclude: [/node_modules/, /\.global\.scss$/],
+                use: ["to-string-loader", "css-loader", "sass-loader"]
             },
 
             // workaround for warning: System.import() is deprecated and will be removed soon. Use import() instead.

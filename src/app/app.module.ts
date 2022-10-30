@@ -10,13 +10,16 @@ import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { AlertComponent } from './_components';
 import { StudentComponent } from "@/student/student.component";
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
 
 @NgModule({
     imports: [
         BrowserModule,
         ReactiveFormsModule,
         HttpClientModule,
-        appRoutingModule
+        appRoutingModule,
+        SocialLoginModule
     ],
     declarations: [
         AppComponent,
@@ -28,6 +31,23 @@ import { StudentComponent } from "@/student/student.component";
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        {
+            provide: 'SocialAuthServiceConfig',
+            useValue: {
+                autoLogin: false,
+                providers: [
+                    {
+                        id: GoogleLoginProvider.PROVIDER_ID,
+                        provider: new GoogleLoginProvider(
+                          '488478454820-eim36qukg28l4r372k4e2k76sia1vn2u.apps.googleusercontent.com'
+                        )
+                    },
+                ],
+                onError: (err) => {
+                    console.error(err);
+                }
+            } as SocialAuthServiceConfig,
+        }
     ],
     bootstrap: [AppComponent]
 })
